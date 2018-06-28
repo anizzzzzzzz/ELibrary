@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-                <li><a href="#">Add Book</a></li>
+                <li><a href="${pageContext.request.contextPath}/add-book">Add Book</a></li>
                 <li><a href="#">Issue Book</a></li>
                 <li><a href="#">View Issued Book</a></li>
                 <li><a href="#">Return Book</a></li>

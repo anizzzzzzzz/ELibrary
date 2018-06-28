@@ -58,7 +58,7 @@ public class AddLibrarian extends HttpServlet {
         req.setAttribute("librarian",librarian);
 
         if(errorString!=null && errorString.length()>0){
-            this.getServletContext().getRequestDispatcher("/views/addLibrarian.jsp");
+            this.getServletContext().getRequestDispatcher("/views/addLibrarian.jsp").forward(req,resp);
         }
         else{
             resp.sendRedirect(req.getContextPath()+"/view-librarian");

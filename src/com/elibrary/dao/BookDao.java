@@ -14,7 +14,8 @@ public class BookDao {
 
 	public static int save(Book bean, Connection con) throws SQLException{
 		int status=0;
-		PreparedStatement ps=con.prepareStatement("insert into e_book values(?,?,?,?,?,?)");
+		PreparedStatement ps=con.prepareStatement("insert into e_book(callno,name,author,publisher,quantity,issued)" +
+				" values(?,?,?,?,?,?)");
 		ps.setString(1,bean.getCallno());
 		ps.setString(2,bean.getName());
 		ps.setString(3,bean.getAuthor());
