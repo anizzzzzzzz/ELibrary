@@ -23,10 +23,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/view-book">View Books</a></li>
                 <li><a href="${pageContext.request.contextPath}/add-book">Add Book</a></li>
-                <li><a href="#">Issue Book</a></li>
-                <li><a href="#">View Issued Book</a></li>
-                <li><a href="#">Return Book</a></li>
+                <li><a href="${pageContext.request.contextPath}/view-issued-book">View Issued Book</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="${pageContext.request.contextPath}/logout-librarian">Logout</a></li>

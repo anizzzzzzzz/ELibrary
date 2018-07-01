@@ -62,10 +62,6 @@ public class AdminLogin extends HttpServlet{
             if(rememberMe){
                 DBUtils.storeCookies(resp,userName,password, Constant.ADMIN);
             }
-            // Else delete cookie.
-            else{
-                DBUtils.deleteUserCookie(resp, Constant.ADMIN);
-            }
 
             resp.sendRedirect(req.getContextPath()+"/admin-home");
         }

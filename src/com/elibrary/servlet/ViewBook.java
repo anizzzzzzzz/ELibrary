@@ -9,10 +9,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.elibrary.constant.Constant.LIBRARIANLOGGEDIN;
+import static com.elibrary.constant.Constant.LIBRARIANUSERNAME;
 
 @WebServlet(urlPatterns = {"/librarian-home","/view-book"})
 public class ViewBook extends HttpServlet {
@@ -20,22 +24,30 @@ public class ViewBook extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection connection= DBUtils.getStoredConnection(req);
+        HttpSession session=req.getSession();
 
-        String errorString=null;
-        List<Book> books=null;
-
-        try {
-            books= BookDao.view(connection);
+        if(session.getAttribute(LIBRARIANLOGGEDIN)==null && session.getAttribute(LIBRARIANUSERNAME)==null){
+            this.getServletContext().getRequestDispatcher("/views/librarianLogin.jsp").forward(req,resp);
         }
-        catch (SQLException ex){
-            ex.printStackTrace();
-            errorString=ex.getMessage();
-        }
+        else {
+            Connection connection = DBUtils.getStoredConnection(req);
 
-        req.setAttribute("errorString",errorString);
-        req.setAttribute("books",books);
-        this.getServletContext().getRequestDispatcher("/views/librarianHomePage.jsp").forward(req,resp);
+            String errorString = null;
+            List<Book> books = null;
+            String successString = req.getParameter("successString");
+
+            try {
+                books = BookDao.view(connection);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                errorString = ex.getMessage();
+            }
+
+            req.setAttribute("errorString", errorString);
+            req.setAttribute("successString", successString);
+            req.setAttribute("books", books);
+            this.getServletContext().getRequestDispatcher("/views/librarianHomePage.jsp").forward(req, resp);
+        }
 
     }
 

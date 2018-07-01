@@ -64,6 +64,7 @@ public class BookDao {
 
 		return issued;
 	}
+
 	public static boolean checkIssue(String callno, Connection con) throws SQLException{
 		boolean status=false;
 		PreparedStatement ps=con.prepareStatement("select * from e_book where callno=? and quantity>issued");
@@ -81,13 +82,14 @@ public class BookDao {
 		System.out.println("Check status: "+checkstatus);
 		if(checkstatus){
 			int status=0;
-			PreparedStatement ps=con.prepareStatement("insert into e_issuebook values(?,?,?,?,?,?)");
+			PreparedStatement ps=con.prepareStatement("insert into " +
+					"e_issuebook(callno,studentid,studentname,studentmobile,issueddate,returnstatus) " +
+					"values(?,?,?,?,?,?)");
 			ps.setString(1,bean.getCallno());
 			ps.setString(2,bean.getStudentid());
 			ps.setString(3,bean.getStudentname());
 			ps.setLong(4,bean.getStudentmobile());
-			java.sql.Date currentDate=new java.sql.Date(System.currentTimeMillis());
-			ps.setDate(5,currentDate);
+			ps.setDate(5,bean.getIssueddate());
 			ps.setString(6,"no");
 
 			status=ps.executeUpdate();
@@ -103,11 +105,11 @@ public class BookDao {
 			return 0;
 		}
 	}
-	public static int returnBook(String callno,int studentid, Connection con) throws SQLException{
+	public static int returnBook(String callno,String studentid, Connection con) throws SQLException{
 		int status=0;
 		PreparedStatement ps=con.prepareStatement("update e_issuebook set returnstatus='yes' where callno=? and studentid=?");
 		ps.setString(1,callno);
-		ps.setInt(2,studentid);
+		ps.setString(2,studentid);
 
 		status=ps.executeUpdate();
 		if(status>0){
@@ -116,9 +118,9 @@ public class BookDao {
 			ps2.setString(2,callno);
 			status=ps2.executeUpdate();
 		}
-			
 		return status;
 	}
+
 	public static List<IssueBook> viewIssuedBooks(Connection con) throws SQLException{
 		List<IssueBook> list=new ArrayList<IssueBook>();
 		PreparedStatement ps=con.prepareStatement("select * from e_issuebook order by issueddate desc");
@@ -133,9 +135,9 @@ public class BookDao {
 			bean.setReturnstatus(rs.getString("returnstatus"));
 			list.add(bean);
 		}
-		
 		return list;
 	}
+
 /*	public static int update(LibrarianLogin bean){
 		int status=0;
 		try{

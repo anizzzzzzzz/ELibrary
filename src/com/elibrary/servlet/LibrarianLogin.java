@@ -77,9 +77,6 @@ public class LibrarianLogin extends HttpServlet {
             if(rememberMe){
                 DBUtils.storeCookies(resp,userName,password,LIBRARIAN);
             }
-            else{
-                DBUtils.deleteUserCookie(resp,LIBRARIAN);
-            }
 
             resp.sendRedirect(req.getContextPath()+"/librarian-home");
         }

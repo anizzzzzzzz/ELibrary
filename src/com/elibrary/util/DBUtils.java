@@ -6,15 +6,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 
 public class DBUtils {
     public static final String ATT_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
-    private static final String ATT_NAME_USER_NAME_LIBRARIAN = "ATTRIBUTE_FOR_STORE_USER_NAME_LIBRARIAN_IN_COOKIE";
-    private static final String ATT_NAME_PASSWORD_LIBRARIAN = "ATTRIBUTE_FOR_STORE_PASSWORD_LIBRARIAN_IN_COOKIE";
-    private static final String ATT_NAME_USER_NAME_ADMIN = "ATTRIBUTE_FOR_STORE_USER_NAME_ADMIN_IN_COOKIE";
-    private static final String ATT_NAME_PASSWORD_ADMIN = "ATTRIBUTE_FOR_STORE_PASSWORD_ADMIN_IN_COOKIE";
+    public static final String ATT_NAME_USER_NAME_LIBRARIAN = "ATTRIBUTE_FOR_STORE_USER_NAME_LIBRARIAN_IN_COOKIE";
+    public static final String ATT_NAME_PASSWORD_LIBRARIAN = "ATTRIBUTE_FOR_STORE_PASSWORD_LIBRARIAN_IN_COOKIE";
+    public static final String ATT_NAME_USER_NAME_ADMIN = "ATTRIBUTE_FOR_STORE_USER_NAME_ADMIN_IN_COOKIE";
+    public static final String ATT_NAME_PASSWORD_ADMIN = "ATTRIBUTE_FOR_STORE_PASSWORD_ADMIN_IN_COOKIE";
 
     public static void storeConnection(ServletRequest request, Connection connection){
         request.setAttribute(ATT_NAME_CONNECTION, connection);

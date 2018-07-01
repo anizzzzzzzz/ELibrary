@@ -9,9 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import static com.elibrary.constant.Constant.LIBRARIANLOGGEDIN;
+import static com.elibrary.constant.Constant.LIBRARIANUSERNAME;
 
 @WebServlet(urlPatterns = {"/add-book"})
 public class AddBook extends HttpServlet {
@@ -19,7 +23,14 @@ public class AddBook extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/views/addBook.jsp").forward(req,resp);
+        HttpSession session=req.getSession();
+
+        if(session.getAttribute(LIBRARIANLOGGEDIN)==null && session.getAttribute(LIBRARIANUSERNAME)==null){
+            this.getServletContext().getRequestDispatcher("/views/librarianLogin.jsp").forward(req,resp);
+        }
+        else {
+            this.getServletContext().getRequestDispatcher("/views/addBook.jsp").forward(req, resp);
+        }
     }
 
     @Override

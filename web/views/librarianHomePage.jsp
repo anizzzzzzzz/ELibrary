@@ -19,17 +19,18 @@
     <div class="container">
         <center><h3>Book Lists</h3></center>
         <center><p style="color:red">${errorString}</p></center>
+        <center><p style="color:green">${successString}</p></center>
         <br/>
         <c:forEach items="${books}" var="book">
-            <div class="card" style="float: left;margin: 5px 10px;width: 30rem;">
+            <div class="card" style="float: left;margin: 5px 10px 5px;padding: 5px;width: 25rem;background-color: #c9e2b3;height: 30rem;">
                 <div class="card-body">
-                    <h3 class="card-title">${book.name}</h3>
-                    <p class="card-text">Call no : ${book.callno}</p>
-                    <p class="card-text">Author : ${book.author}</p>
-                    <p class="card-text">Publisher : ${book.publisher}</p>
-                    <p class="card-text">Quantity : ${book.quantity}</p>
-                    <p class="card-text">Issued : ${book.issued}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h3 class="card-title" style="text-align: center;">${book.name}</h3>
+                    <p class="card-text" style="text-align: center;">Call no : ${book.callno}</p>
+                    <p class="card-text" style="text-align: center;">Author : ${book.author}</p>
+                    <p class="card-text" style="text-align: center;">Publisher : ${book.publisher}</p>
+                    <p class="card-text" style="text-align: center;">Quantity : ${book.quantity}</p>
+                    <p class="card-text" style="text-align: center;">Issued : ${book.issued}</p>
+                    <center><a href="${pageContext.request.contextPath}/issue-book?callno=${book.callno}" class="btn btn-primary">Issue Book</a></center>
                 </div>
             </div>
         </c:forEach>

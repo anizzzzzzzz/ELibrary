@@ -20,30 +20,31 @@
       flex-direction: column;">
     <jsp:include page="/views/common/navbar/navbarhome.jsp"/>
 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 500px;">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <img src="<c:url value='/resources/images/library2.jpg'/>" height="500px" width="500px" alt="Library">
+                <img src="https://library.neura.edu.au/wp-content/uploads/home-page/Library-600x410.jpg" height="500px" width="500px" alt="Library" style="margin:auto;">
             </div>
 
             <div class="item">
-                <img src="<c:url value='/resources/images/library1.jpg'/>" height="500px" width="500px" alt="Library">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQjLyvdJp5JUWJSceU8IQ8cvC1PPbF9DXH6utLVxdM-JxOkP9X" height="500px" width="500px" alt="Library" style="margin: auto;">
             </div>
 
             <div class="item">
-                <img src="<c:url value='/resources/images/admin1.jpg'/>" height="500px" width="500px" alt="Library">
+                <img src="http://www.aaci.org.il/upimages/ebooks.jpg" height="500px" width="500px" alt="Library" style="margin:auto;">
             </div>
 
             <div class="item">
-                <img src="<c:url value='/resources/images/admin2.jpg'/>"  height="500px" width="500px" alt="Library">
+                <img src="http://schoolville.com/sitefiles/Services/7/elibrary.jpg"  height="500px" width="500px" alt="Library" style="margin:auto;">
             </div>
         </div>
 

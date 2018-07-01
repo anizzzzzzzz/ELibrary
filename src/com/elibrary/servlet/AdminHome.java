@@ -4,11 +4,13 @@ import com.elibrary.beans.Librarian;
 import com.elibrary.dao.LibrarianDao;
 import com.elibrary.util.DBUtils;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,23 +23,30 @@ public class AdminHome extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection connection= DBUtils.getStoredConnection(req);
-
-        String errorString=null;
-        List<Librarian> librarians=null;
-
-        try{
-            librarians= LibrarianDao.view(connection);
+        HttpSession session=req.getSession();
+        if(session.getAttribute("adminLoggedIn")==null &&
+                session.getAttribute("adminUsername")==null) {
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/views/adminLogin.jsp");
+            dispatcher.forward(req, resp);
         }
-        catch (SQLException ex){
-            ex.printStackTrace();
-            errorString=ex.getMessage();
+        else {
+            Connection connection = DBUtils.getStoredConnection(req);
+
+            String errorString = null;
+            List<Librarian> librarians = null;
+
+            try {
+                librarians = LibrarianDao.view(connection);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                errorString = ex.getMessage();
+            }
+
+            req.setAttribute("errorString", errorString);
+            req.setAttribute("librarians", librarians);
+
+            this.getServletContext().getRequestDispatcher("/views/adminPage.jsp").forward(req, resp);
         }
-
-        req.setAttribute("errorString",errorString);
-        req.setAttribute("librarians",librarians);
-
-        this.getServletContext().getRequestDispatcher("/views/adminPage.jsp").forward(req,resp);
     }
 
     @Override
